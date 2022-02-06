@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    // Configuration du comportement de votre APPI
+    // Configuration du comportement de votre API
     // face aux requêtes qui arrivent
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
