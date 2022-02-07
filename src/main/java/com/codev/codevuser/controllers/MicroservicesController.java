@@ -20,6 +20,7 @@ public class MicroservicesController {
 
     private String eco2mixURL = "http://localhost:8000/";
     private String prodURL = "http://127.0.0.1:5000/";
+    private String tmpURL = "http://localhost:8002/";
 
 
     @GetMapping(value = "/eco2mix/hour")
@@ -49,6 +50,38 @@ public class MicroservicesController {
     @GetMapping(value = "/prod/{year}")
     private ResponseEntity<?> getProdByYear(@PathVariable("year") int year) {
         String url = prodURL + "annualProd/" + year;
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(url, String.class);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/temperature")
+    private ResponseEntity<?> getTemperatures() {
+        String url = tmpURL + "tmp";
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(url, String.class);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/temperature/region/{region}")
+    private ResponseEntity<?> getTempByRegion(@PathVariable("region") String region) {
+        String url = tmpURL + "tmp/region/" + region;
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(url, String.class);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/temperature/year/{year}")
+    private ResponseEntity<?> getTempByYear(@PathVariable("year") String year) {
+        String url = tmpURL + "tmp/year/" + year;
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(url, String.class);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/temperature/yearRegion/{year}/{region}")
+    private ResponseEntity<?> getProdByYear(@PathVariable("year") int year, @PathVariable("region") String region) {
+        String url = tmpURL + "tmp/yearRegion/" + year + "/" + region;
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
         return ResponseEntity.ok(result);
