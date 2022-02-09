@@ -3,6 +3,7 @@ package com.codev.codevuser.controllers;
 import com.codev.codevuser.jwtClasses.JwtTokenUtil;
 import com.codev.codevuser.services.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -18,9 +19,12 @@ public class MicroservicesController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    private String eco2mixURL = "http://localhost:8000/";
-    private String prodURL = "http://127.0.0.1:5000/";
-    private String tmpURL = "http://localhost:8002/";
+    @Value(value = "${micro.tmpURL}")
+    private String tmpURL;
+    @Value(value = "${micro.prodURL}")
+    private String prodURL;
+    @Value(value = "${micro.eco2mixURL}")
+    private String eco2mixURL;
 
 
     @GetMapping(value = "/eco2mix/hour")
