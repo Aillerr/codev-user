@@ -29,11 +29,8 @@ public class AuthentificationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    private UserRepository utilisateurRepository;
-
     @Autowired
-    public AuthentificationController(UserRepository UtilisateurRepository) {
-        this.utilisateurRepository = UtilisateurRepository;
+    public AuthentificationController() {
     }
 
     @PostMapping("/login")
@@ -42,10 +39,15 @@ public class AuthentificationController {
         Optional<UserEntity> _util = userDetailsService.getUtilisateurFromUsername(util.getLogin());
         if(userDetails.isPresent() && _util.isPresent()){
             final String token = jwtTokenUtil.generateToken(userDetails.get());
-
+            final UserEntity userEntity = userDetailsService.loadFullUserByUsername(util.getLogin());
             // On renvoit le token
             HashMap<String, String> json = new HashMap<>();
             json.put("token", token);
+            json.put("login", userEntity.getLogin());
+            json.put("nom", userEntity.getNom());
+            json.put("prenom", userEntity.getPrenom());
+            json.put("region", userEntity.getRegion());
+
 
             return ResponseEntity.ok(json);
         }else

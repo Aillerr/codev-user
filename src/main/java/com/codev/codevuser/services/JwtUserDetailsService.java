@@ -42,6 +42,16 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
+    public UserEntity loadFullUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity unUtilisateur = null;
+        unUtilisateur = utilisateurRepository.searchLogin(username);
+        if (unUtilisateur != null) {
+            return unUtilisateur;
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+    }
+
     public void register(UserEntity util) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String pass = encoder.encode(util.getPassword());

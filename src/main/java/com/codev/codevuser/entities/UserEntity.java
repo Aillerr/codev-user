@@ -11,12 +11,12 @@ public class UserEntity {
     private String nom;
     private String prenom;
     private String password;
-    private int region;
+    private String region;
 
     public UserEntity() {
     }
 
-    public UserEntity(int id, String login, String nom, String prenom, String password, int region) {
+    public UserEntity(int id, String login, String nom, String prenom, String password, String region) {
         this.id = id;
         this.login = login;
         this.nom = nom;
@@ -51,7 +51,7 @@ public class UserEntity {
         return password;
     }
 
-    public int getRegion() {
+    public String getRegion() {
         return region;
     }
 
@@ -69,7 +69,7 @@ public class UserEntity {
         this.password = password;
     }
 
-    public void setRegion(int region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 
