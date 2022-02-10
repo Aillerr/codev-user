@@ -4,9 +4,13 @@ import com.codev.codevuser.jwtClasses.JwtTokenUtil;
 import com.codev.codevuser.services.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 
 @RequestMapping("/microservices")
@@ -41,6 +45,23 @@ public class MicroservicesController {
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/eco2mix/ratio/{region}")
+    private ResponseEntity<?> getRatioEco2mix(@PathVariable("region") String region) {
+        HttpHeaders headers = new HttpHeaders();
+        JSONObject personJsonObject = new JSONObject();
+        try {
+            personJsonObject.put("region", region);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        HttpEntity<String> request =
+                new HttpEntity<String>(personJsonObject.toString(), headers);
+        String url = eco2mixURL + "eco2mix/ratio";
+        RestTemplate restTemplate = new RestTemplate();
+        String res = restTemplate.postForObject(url,request,String.class);
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping(value = "/prod")
