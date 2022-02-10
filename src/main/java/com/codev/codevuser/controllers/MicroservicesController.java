@@ -47,7 +47,7 @@ public class MicroservicesController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping(value = "/eco2mix/ratio/{region}")
+    /*@GetMapping(value = "/eco2mix/ratio/{region}")
     private ResponseEntity<?> getRatioEco2mix(@PathVariable("region") String region) {
         HttpHeaders headers = new HttpHeaders();
         JSONObject personJsonObject = new JSONObject();
@@ -62,7 +62,7 @@ public class MicroservicesController {
         RestTemplate restTemplate = new RestTemplate();
         String res = restTemplate.postForObject(url,request,String.class);
         return ResponseEntity.ok(res);
-    }
+    }*/
 
     @GetMapping(value = "/prod")
     private ResponseEntity<?> getProd() {
